@@ -22,4 +22,6 @@ sf apex run test \
   --target-org "${ORG_ALIAS}" \
   --wait 30
 
+echo "=========================================="
 echo "Tests Completed Successfully!"
+echo "=========================================="

@@ -3,14 +3,16 @@ echo "=========================================="
 echo "Deploying to Full Sandbox"
 echo "=========================================="
 
-# Convert source to metadata format
-echo "Converting source to metadata format..."
-sfdx force:source:convert -d deploy_code -r force-app
+# Deploy using modern sf CLI
+echo "=========================================="
+echo "Deploying Code to Full Sandbox..."
+echo "=========================================="
+sf project deploy start \
+  --source-dir force-app \
+  --target-org FullSandbox \
+  --test-level RunLocalTests \
+  --wait 30
 
-# Deploy code to Full Sandbox
-echo "Deploying code to Full Sandbox..."
-sfdx force:mdapi:deploy \
-  -u FullSandbox \
-  -d deploy_code/ \
-  -w -1 \
-  -l RunLocalTests
+echo "=========================================="
+echo "Deployment Completed Successfully!"
+echo "=========================================="

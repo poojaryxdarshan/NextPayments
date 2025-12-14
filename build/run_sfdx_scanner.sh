@@ -23,9 +23,11 @@ sf scanner run \
   --format "csv" \
   --outfile "sfdxScannerAnalysis.csv" \
 
+echo "=========================================="
 echo "Scanner Analysis Complete!"
+echo "=========================================="
 
-# Display results summary
+# Display Results Summary
 if [ -f sfdxScannerAnalysis.csv ]; then
   echo "Results Saved to sfdxScannerAnalysis.csv"
   echo "Total Violations Found:"
