@@ -8,7 +8,7 @@ jobs:
       login_script:
         type: string
     docker:
-      - image: circleci/node:latest
+      - image: cimg/node:22.11
     steps:
       - checkout
       - restore_cache:

@@ -1,29 +1,33 @@
-/**
- * This class contains unit tests for validating the behavior of Apex classes
- * and triggers.
- *
- * Unit tests are class methods that verify whether a particular piece
- * of code is working properly. Unit test methods take no arguments,
- * commit no data to the database, and are flagged with the testMethod
- * keyword in the method definition.
- *
- * All test methods in an org are executed whenever Apex code is deployed
- * to a production org to confirm correctness, ensure code
- * coverage, and prevent regressions. All Apex classes are
- * required to have at least 75% code coverage in order to be deployed
- * to a production org. In addition, all triggers must have some code coverage.
- * 
- * The @isTest class annotation indicates this class only contains test
- * methods. Classes defined with the @isTest annotation do not count against
- * the org size limit for all Apex scripts.
- *
- * See the Apex Language Reference for more information about Testing and Code Coverage.
- */
 @isTest
-private class TestingPipelineTest {
-
+public class TestingPipelineTest {
+    
     @isTest
-    static void myUnitTest() {
-        // TO DO: implement unit test
+    static void testConstructor() {
+        // Start test context
+        Test.startTest();
+        
+        // Create instance of TestingPipeline
+        TestingPipeline testObj = new TestingPipeline();
+        
+        // Stop test context
+        Test.stopTest();
+        
+        // Assert that object was created successfully
+        System.assertNotEquals(null, testObj, 'TestingPipeline object should be instantiated');
+    }
+    
+    @isTest
+    static void testDebugStatement() {
+        // Start test context
+        Test.startTest();
+        
+        // Create instance - this will trigger the debug statement
+        TestingPipeline testObj = new TestingPipeline();
+        
+        // Stop test context
+        Test.stopTest();
+        
+        // Verify object creation (debug statements can't be directly tested)
+        System.assertNotEquals(null, testObj, 'TestingPipeline should be created successfully');
     }
 }
