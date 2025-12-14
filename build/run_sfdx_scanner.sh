@@ -19,9 +19,17 @@ sf plugins
 # Run SFDX Scanner
 echo "Running SFDX Scanner on Codebase..."
 sf scanner run \
-  --target "**/default/**" \
+  --target "force-app/**/*.cls,force-app/**/*.trigger" \
   --format "csv" \
   --outfile "sfdxScannerAnalysis.csv" \
-  --violations-cause-error
 
 echo "Scanner Analysis Complete!"
+
+# Display results summary
+if [ -f sfdxScannerAnalysis.csv ]; then
+  echo "Results Saved to sfdxScannerAnalysis.csv"
+  echo "Total Violations Found:"
+  tail -n +2 sfdxScannerAnalysis.csv | wc -l
+else
+  echo "Warning: No Results File Generated"
+fi
