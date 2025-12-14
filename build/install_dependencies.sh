@@ -3,12 +3,12 @@ echo "=========================================="
 echo "Installing Dependencies"
 echo "=========================================="
 
-# Install Salesforce CLI (new version)
+# Install Salesforce CLI globally with sudo
 echo "Installing Salesforce CLI..."
-npm install --global @salesforce/cli
+sudo npm install --global @salesforce/cli
 
 # Verify installation
-echo "Verifying Installation..."
+echo "Verifying installation..."
 sf --version
 
-echo "Dependencies Installed Successfully!"
+echo "Dependencies installed successfully!"
