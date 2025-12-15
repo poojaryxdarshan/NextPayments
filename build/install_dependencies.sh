@@ -1,7 +1,20 @@
 # build/install_dependencies.sh
 echo "=========================================="
-echo "Install Salesforce CLI"
+echo "Installing Dependencies"
 echo "=========================================="
 
-echo "Installing Salesforce CLI"
-sudo npm install @salesforce/cli --global
+# Install Salesforce CLI Globally with Sudo
+echo "=========================================="
+echo "Installing Salesforce CLI..."
+echo "=========================================="
+sudo npm install --global @salesforce/cli
+
+# Verify Installation
+echo "=========================================="
+echo "Verifying Installation..."
+echo "=========================================="
+sf --version
+
+echo "=========================================="
+echo "Dependencies Installed Successfully!"
+echo "=========================================="
