@@ -8,7 +8,7 @@ jobs:
       login_script:
         type: string
     docker:
-      - image: circleci/node:latest
+      - image: cimg/node:22.11
     steps:
       - checkout
       - restore_cache:
@@ -26,14 +26,14 @@ jobs:
           name: Login to Org
           command: . build/<< parameters.login_script >>
       - run:
-          name: Run Apex Tests
-          command: . build/run_apex_tests.sh << parameters.org_alias >>
+          name: Validate Deployment with Tests
+          command: . build/validate_deployment.sh << parameters.org_alias >>
       - store_test_results:
           path: test-results
 
   code-review:
     docker:
-      - image: circleci/node:latest
+      - image: cimg/node:22.11
     steps:
       - checkout
       - restore_cache:
@@ -64,7 +64,7 @@ jobs:
       deploy_script:
         type: string
     docker:
-      - image: circleci/node:latest
+      - image: cimg/node:22.11
     steps:
       - checkout
       - restore_cache:
