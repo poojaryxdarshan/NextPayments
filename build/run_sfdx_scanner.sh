@@ -10,12 +10,28 @@ sudo apt-get install -y openjdk-11-jdk
 
 # Install SFDX Scanner Plugin
 echo "Installing SFDX Scanner Plugin..."
-echo sfdx plugins:install @salesforce/sfdx-scanner
+sf plugins install @salesforce/sfdx-scanner
+
+# Verify Istallation
+echo "Verifying Scanner Installation..."
+sf plugins
 
 # Run SFDX Scanner
 echo "Running SFDX Scanner on Codebase..."
-npx sfdx scanner:run \
-  --target "**/default/**" \
+sf scanner run \
+  --target "force-app/**/*.cls,force-app/**/*.trigger" \
   --format "csv" \
   --outfile "sfdxScannerAnalysis.csv" \
-  --violations-cause-error
+
+echo "=========================================="
+echo "Scanner Analysis Complete!"
+echo "=========================================="
+
+# Display Results Summary
+if [ -f sfdxScannerAnalysis.csv ]; then
+  echo "Results Saved to sfdxScannerAnalysis.csv"
+  echo "Total Violations Found:"
+  tail -n +2 sfdxScannerAnalysis.csv | wc -l
+else
+  echo "Warning: No Results File Generated"
+fi

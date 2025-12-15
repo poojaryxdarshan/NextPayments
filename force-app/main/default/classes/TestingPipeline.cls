@@ -1,5 +1,5 @@
-public with sharing class TestingPipeline {
+public class TestingPipeline {
     public TestingPipeline() {
-
+        System.debug('TestingPipeline Constructor Called');
     }
 }

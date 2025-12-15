@@ -8,7 +8,7 @@ jobs:
       login_script:
         type: string
     docker:
-      - image: circleci/node:latest
+      - image: cimg/node:22.11
     steps:
       - checkout
       - restore_cache:
@@ -26,14 +26,14 @@ jobs:
           name: Login to Org
           command: . build/<< parameters.login_script >>
       - run:
-          name: Run Apex Tests
-          command: . build/run_apex_tests.sh << parameters.org_alias >>
+          name: Validate Deployment with Tests
+          command: . build/validate_deployment.sh << parameters.org_alias >>
       - store_test_results:
           path: test-results
 
   code-review:
     docker:
-      - image: circleci/node:latest
+      - image: cimg/node:22.11
     steps:
       - checkout
       - restore_cache:
@@ -64,7 +64,7 @@ jobs:
       deploy_script:
         type: string
     docker:
-      - image: circleci/node:latest
+      - image: cimg/node:22.11
     steps:
       - checkout
       - restore_cache:
@@ -116,7 +116,7 @@ workflows:
             branches:
               only: dev
 
-  # Full Sandbox - Team Lead approval
+  # Full Sandbox - Team Lead Approval
   full-sandbox-pipeline:
     jobs:
       - run-tests:
@@ -153,12 +153,6 @@ workflows:
 
   # Prod Prep - Manager manually triggers (no automatic trigger)
   prodprep-deployment:
-    triggers:
-    - schedule:
-        cron: "0 0 31 2 *"  # Never runs automatically
-        filters:
-          branches:
-            only: prodprep
     jobs:
       - run-tests:
           name: test-prodprep
@@ -174,7 +168,7 @@ workflows:
           filters:
             branches:
               only: prodprep
-      - manager-approve-prodprep:
+      - hold-for-prodprep-approval:
           type: approval
           requires:
             - review-prodprep
@@ -187,19 +181,13 @@ workflows:
           login_script: "login_to_prodprep_sandbox.sh"
           deploy_script: "deploy_to_prodprep.sh"
           requires:
-            - manager-approve-prodprep
+            - hold-for-prodprep-approval
           filters:
             branches:
               only: prodprep
 
   # Production - Manager manually triggers (no automatic trigger)
   production-deployment:
-    triggers:
-    - schedule:
-        cron: "0 0 31 2 *"  # Never runs automatically
-        filters:
-          branches:
-            only: master
     jobs:
       - run-tests:
           name: test-production
@@ -215,7 +203,7 @@ workflows:
           filters:
             branches:
               only: master
-      - manager-approve-production:
+      - hold-for-production-approval:
           type: approval
           requires:
             - review-production
@@ -228,7 +216,7 @@ workflows:
           login_script: "login_to_production.sh"
           deploy_script: "deploy_to_production.sh"
           requires:
-            - manager-approve-production
+            - hold-for-production-approval
           filters:
             branches:
               only: master
