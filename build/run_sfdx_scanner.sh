@@ -30,7 +30,6 @@ echo "=========================================="
 # Display Results Summary
 if [ -f sfdxScannerAnalysis.csv ]; then
   echo "Results Saved to sfdxScannerAnalysis.csv"
-  echo ""
   echo "=========================================="
   echo "Violation Details:"
   echo "=========================================="
