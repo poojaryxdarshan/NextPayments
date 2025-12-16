@@ -30,17 +30,8 @@ echo "=========================================="
 # Display Results Summary
 if [ -f sfdxScannerAnalysis.csv ]; then
   echo "Results Saved to sfdxScannerAnalysis.csv"
-  echo "========================================"
-  echo "Violation Details:"
-  echo "========================================"
-  
-  # Print with column formatting for better readability
-  column -t -s ',' sfdxScannerAnalysis.csv | head -20
-  
-  # Count violations
-  VIOLATION_COUNT=$(tail -n +2 sfdxScannerAnalysis.csv | wc -l)
-  echo ""
-  echo "Total Violations Found: $VIOLATION_COUNT"
+  echo "Total Violations Found:"
+  tail -n +2 sfdxScannerAnalysis.csv | wc -l
 else
   echo "Warning: No Results File Generated"
 fi
